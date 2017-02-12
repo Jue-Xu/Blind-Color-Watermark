@@ -4,17 +4,16 @@ import math
 import time
 import socket
 import numpy as np
-from cv2 import cv
-from matplotlib import pyplot as plt
 from PIL import Image,ImageDraw,ImageFont,ImageGrab
 
-measure = cv2.imread('debug.png', 1)
-(B,G,R) = cv2.split(measure)
+measure = cv2.imread('watermark.png', 1)
+w, h =measure.shape[:2]
+(measure_B,measure_G,measure_R) = cv2.split(cv2.cvtColor(measure, cv2.COLOR_BGR2YUV))
 restore_bin = np.zeros(32)
 
 for i in range(32):
-    measure_dft = cv2.dct(np.float32(B[0:8,0+8*i:8+8*i]))
-    if measure_dft[7,7] > 50:
+    measure_dft = cv2.dct(np.float32(measure_B[w-4:w,0+4*i:4+4*i]))
+    if measure_dft[3,3] > 5:
         restore_bin[i] = 1
 
 restore_bin_array = np.array(map(int, restore_bin)).reshape((4,8))
