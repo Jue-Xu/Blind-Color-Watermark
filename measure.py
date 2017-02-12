@@ -23,3 +23,5 @@ for i in range(4):
         restore_ip[i] = restore_ip[i] + restore_bin_array[i][j]*2**(7-j)
 
 print str(int(restore_ip[0]))+'.'+str(int(restore_ip[1]))+'.'+str(int(restore_ip[2]))+'.'+str(int(restore_ip[3]))
+
+time.sleep(10)
